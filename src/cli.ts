@@ -20,10 +20,10 @@ const command = defineCommand({
 
         const links = await getSymLinkList(config)
 
-        const selectOptions = links.map(link => ({
-            value: link.name,
-            label: `${link.name}`,
-            hint: link.bin.join(','),
+        const selectOptions = Object.entries(links).map(([name, pkgInfo]) => ({
+            value: name,
+            label: `${name}`,
+            hint: pkgInfo.bin.join(','),
         }))
 
         const selectedLinks = await multiselect({
