@@ -1,8 +1,9 @@
+import type { ISymLinkProjects } from '@/types.ts'
 import { cancel, intro, isCancel, multiselect } from '@clack/prompts'
 import { createMain, defineCommand } from 'citty'
 import pc from 'picocolors'
 import { resolveConfig } from '@/config.ts'
-import { getGlobalPrefix, getSymLinkList } from '@/utils.ts'
+import { cleanBinaries, getGlobalPrefix, getSymLinkList } from '@/utils.ts'
 import { description, name, version } from '../package.json'
 
 const command = defineCommand({
@@ -36,7 +37,10 @@ const command = defineCommand({
             process.exit(0)
         }
 
-        // console.log(selectedLinks.map(name => symLinks[name]).filter(Boolean))
+        await cleanBinaries(
+            config,
+            selectedLinks.map(name => symLinks[name]).filter(Boolean) as ISymLinkProjects[],
+        )
     },
 })
 
