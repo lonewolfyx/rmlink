@@ -1,7 +1,7 @@
 {
     "name": "rmlink",
     "type": "module",
-    "version": "0.0.0",
+    "version": "0.0.0-alpha.1",
     "packageManager": "pnpm@10.15.1",
     "description": "Solves the hassle of manually deleting npm link symlinks—just run rmlink and clean up instantly",
     "author": "lonewolfyx <olddrivero.king@qq.com>",
