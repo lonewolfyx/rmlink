@@ -1,5 +1,6 @@
 export interface IConfig {
     cwd: string
+    symLinkPath: string
     globalRoot: string
 }
 
