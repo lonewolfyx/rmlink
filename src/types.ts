@@ -9,3 +9,5 @@ export interface ISymLinkProjects {
     realPath: string // 本地开发源码的位置
     bin: string[]
 }
+
+export type ISymLinksMap = Record<string, ISymLinkProjects>

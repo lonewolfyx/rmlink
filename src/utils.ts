@@ -1,4 +1,4 @@
-import type { IConfig, ISymLinkProjects } from '@/types.ts'
+import type { IConfig, ISymLinkProjects, ISymLinksMap } from '@/types.ts'
 import { lstat, readdir, readFile, readlink } from 'node:fs/promises'
 import { dirname, isAbsolute, join, resolve } from 'node:path'
 import { x } from 'tinyexec'
@@ -16,7 +16,7 @@ export const isSymlink = async (p: string): Promise<boolean> => {
     return (await lstat(p)).isSymbolicLink()
 }
 
-export const getSymLinkList = async (config: IConfig): Promise<ISymLinkProjects[]> => {
+export const getSymLinkList = async (config: IConfig): Promise<ISymLinksMap> => {
     const symlinks: ISymLinkProjects[] = []
 
     async function scan(dir: string, scope = '') {
@@ -53,5 +53,8 @@ export const getSymLinkList = async (config: IConfig): Promise<ISymLinkProjects[
     }
 
     await scan(config.globalRoot)
-    return symlinks
+
+    return Object.fromEntries(
+        symlinks.map(item => [item.name, item]),
+    )
 }
