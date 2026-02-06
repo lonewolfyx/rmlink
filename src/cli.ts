@@ -1,4 +1,6 @@
 import { createMain, defineCommand } from 'citty'
+import { resolveConfig } from '@/config.ts'
+import { getGlobalPrefix, getSymLinkList } from '@/utils.ts'
 import { description, name, version } from '../package.json'
 
 const command = defineCommand({
@@ -10,22 +12,13 @@ const command = defineCommand({
     setup() {
         console.log('Setup')
     },
-    cleanup() {
-        console.log('Cleanup')
-    },
-    args: {
-        cwd: {
-            type: 'string',
-            description: 'Current working directory',
-            alias: 'c',
-            default: process.cwd(),
-        },
-    },
-    subCommands: {
-        build: () => import('./commands/build.ts').then(r => r.default),
-    },
-    run({ args }) {
-        console.log(args)
+    async run({ args }) {
+        const symLinkPath = await getGlobalPrefix()
+        const config = resolveConfig(symLinkPath)
+
+        const links = await getSymLinkList(config)
+
+        console.log(links)
     },
 })
 
