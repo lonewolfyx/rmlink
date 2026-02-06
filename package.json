@@ -1,0 +1,68 @@
+{
+    "name": "rmlink",
+    "type": "module",
+    "version": "0.0.0",
+    "packageManager": "pnpm@10.15.1",
+    "description": "Solves the hassle of manually deleting npm link symlinks—just run rmlink and clean up instantly",
+    "author": "lonewolfyx <olddrivero.king@qq.com>",
+    "license": "MIT",
+    "homepage": "https://github.com/lonewolfyx/rmlink",
+    "bugs": {
+        "url": "https://github.com/lonewolfyx/rmlink/issues"
+    },
+    "keywords": [
+        "rmlink",
+        "link"
+    ],
+    "exports": {
+        ".": "./dist/cli.mjs",
+        "./package.json": "./package.json"
+    },
+    "types": "./dist/cli.d.mts",
+    "bin": {
+        "rmlink": "./bin/cli.js"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "dev": "tsdown --watch",
+        "build": "tsdown",
+        "lint": "eslint",
+        "lint:fix": "eslint --fix",
+        "prepublishOnly": "pnpm build",
+        "prepare": "simple-git-hooks",
+        "test": "tsx ./src/cli.ts build -p asd --workDir 111"
+    },
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org",
+        "access": "public"
+    },
+    "dependencies": {
+        "citty": "^0.2.0",
+        "defu": "^6.1.4",
+        "find-up": "^8.0.0",
+        "glob": "^13.0.0",
+        "jiti": "^2.6.1"
+    },
+    "devDependencies": {
+        "@antfu/eslint-config": "^7.2.0",
+        "@lonewolfyx/tsconfig": "^0.0.6",
+        "@types/node": "^25.2.1",
+        "eslint": "^9.39.2",
+        "lint-staged": "^16.2.7",
+        "picocolors": "^1.1.1",
+        "simple-git-hooks": "^2.13.1",
+        "tsdown": "^0.20.3",
+        "tsdown-preset": "^1.0.3",
+        "tsx": "^4.21.0",
+        "typescript": "^5.9.3"
+    },
+    "simple-git-hooks": {
+        "pre-commit": "npx lint-staged",
+        "commit-msg": "node scripts/verify-commit.js"
+    },
+    "lint-staged": {
+        "*": "eslint --fix"
+    }
+}
