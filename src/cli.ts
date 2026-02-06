@@ -1,4 +1,6 @@
+import { intro } from '@clack/prompts'
 import { createMain, defineCommand } from 'citty'
+import pc from 'picocolors'
 import { resolveConfig } from '@/config.ts'
 import { getGlobalPrefix, getSymLinkList } from '@/utils.ts'
 import { description, name, version } from '../package.json'
@@ -10,7 +12,7 @@ const command = defineCommand({
         description,
     },
     setup() {
-        console.log('Setup')
+        intro(pc.bgCyan(` ${name} [v${version}]`))
     },
     async run({ args }) {
         const symLinkPath = await getGlobalPrefix()
