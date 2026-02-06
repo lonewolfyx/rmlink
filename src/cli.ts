@@ -1,4 +1,4 @@
-import { intro } from '@clack/prompts'
+import { cancel, intro, isCancel, multiselect } from '@clack/prompts'
 import { createMain, defineCommand } from 'citty'
 import pc from 'picocolors'
 import { resolveConfig } from '@/config.ts'
@@ -20,7 +20,23 @@ const command = defineCommand({
 
         const links = await getSymLinkList(config)
 
-        console.log(links)
+        const selectOptions = links.map(link => ({
+            value: link.name,
+            label: `${link.name}`,
+            hint: link.bin.join(','),
+        }))
+
+        const selectedLinks = await multiselect({
+            message: 'Select links to remove',
+            options: selectOptions,
+        })
+
+        if (isCancel(selectedLinks)) {
+            cancel('Operation cancelled')
+            process.exit(0)
+        }
+
+        console.log(selectedLinks)
     },
 })
 
