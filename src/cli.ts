@@ -18,9 +18,9 @@ const command = defineCommand({
         const symLinkPath = await getGlobalPrefix()
         const config = resolveConfig(symLinkPath)
 
-        const links = await getSymLinkList(config)
+        const symLinks = await getSymLinkList(config)
 
-        const selectOptions = Object.entries(links).map(([name, pkgInfo]) => ({
+        const selectOptions = Object.entries(symLinks).map(([name, pkgInfo]) => ({
             value: name,
             label: `${name}`,
             hint: pkgInfo.bin.join(','),
@@ -36,7 +36,7 @@ const command = defineCommand({
             process.exit(0)
         }
 
-        console.log(selectedLinks)
+        // console.log(selectedLinks.map(name => symLinks[name]).filter(Boolean))
     },
 })
 
