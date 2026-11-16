@@ -39,7 +39,7 @@
         "access": "public"
     },
     "dependencies": {
-        "@clack/prompts": "^1.8.1",
+        "@clack/prompts": "^1.9.0",
         "citty": "^0.2.2",
         "defu": "^6.1.7",
         "find-up": "^8.0.0",
